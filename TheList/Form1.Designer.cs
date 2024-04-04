@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.controlPanel = new System.Windows.Forms.Panel();
+            this.button_Exit = new System.Windows.Forms.Button();
+            this.button_Delete = new System.Windows.Forms.Button();
+            this.button_newEntry = new System.Windows.Forms.Button();
             this.Title = new System.Windows.Forms.Label();
             this.listPanel = new System.Windows.Forms.Panel();
-            this.button_newEntry = new System.Windows.Forms.Button();
-            this.button_Delete = new System.Windows.Forms.Button();
-            this.button_Exit = new System.Windows.Forms.Button();
             this.controlPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -48,6 +48,46 @@
             this.controlPanel.Name = "controlPanel";
             this.controlPanel.Size = new System.Drawing.Size(775, 41);
             this.controlPanel.TabIndex = 0;
+            // 
+            // button_Exit
+            // 
+            this.button_Exit.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.button_Exit.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button_Exit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_Exit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.button_Exit.Location = new System.Drawing.Point(697, 4);
+            this.button_Exit.Name = "button_Exit";
+            this.button_Exit.Size = new System.Drawing.Size(75, 34);
+            this.button_Exit.TabIndex = 3;
+            this.button_Exit.Text = "Exit";
+            this.button_Exit.UseVisualStyleBackColor = false;
+            // 
+            // button_Delete
+            // 
+            this.button_Delete.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.button_Delete.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button_Delete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_Delete.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.button_Delete.Location = new System.Drawing.Point(278, 4);
+            this.button_Delete.Name = "button_Delete";
+            this.button_Delete.Size = new System.Drawing.Size(75, 34);
+            this.button_Delete.TabIndex = 2;
+            this.button_Delete.Text = "Delete";
+            this.button_Delete.UseVisualStyleBackColor = false;
+            // 
+            // button_newEntry
+            // 
+            this.button_newEntry.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.button_newEntry.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button_newEntry.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_newEntry.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.button_newEntry.Location = new System.Drawing.Point(195, 4);
+            this.button_newEntry.Name = "button_newEntry";
+            this.button_newEntry.Size = new System.Drawing.Size(75, 34);
+            this.button_newEntry.TabIndex = 1;
+            this.button_newEntry.Text = "New";
+            this.button_newEntry.UseVisualStyleBackColor = false;
+            this.button_newEntry.Click += new System.EventHandler(this.button_newEntry_Click);
             // 
             // Title
             // 
@@ -71,46 +111,6 @@
             this.listPanel.Padding = new System.Windows.Forms.Padding(5);
             this.listPanel.Size = new System.Drawing.Size(775, 454);
             this.listPanel.TabIndex = 1;
-            // 
-            // button_newEntry
-            // 
-            this.button_newEntry.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.button_newEntry.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button_newEntry.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_newEntry.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.button_newEntry.Location = new System.Drawing.Point(195, 4);
-            this.button_newEntry.Name = "button_newEntry";
-            this.button_newEntry.Size = new System.Drawing.Size(75, 34);
-            this.button_newEntry.TabIndex = 1;
-            this.button_newEntry.Text = "New";
-            this.button_newEntry.UseVisualStyleBackColor = false;
-            this.button_newEntry.Click += new System.EventHandler(this.button_newEntry_Click);
-            // 
-            // button_Delete
-            // 
-            this.button_Delete.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.button_Delete.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button_Delete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_Delete.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.button_Delete.Location = new System.Drawing.Point(278, 4);
-            this.button_Delete.Name = "button_Delete";
-            this.button_Delete.Size = new System.Drawing.Size(75, 34);
-            this.button_Delete.TabIndex = 2;
-            this.button_Delete.Text = "Delete";
-            this.button_Delete.UseVisualStyleBackColor = false;
-            // 
-            // button_Exit
-            // 
-            this.button_Exit.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.button_Exit.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button_Exit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_Exit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.button_Exit.Location = new System.Drawing.Point(697, 4);
-            this.button_Exit.Name = "button_Exit";
-            this.button_Exit.Size = new System.Drawing.Size(75, 34);
-            this.button_Exit.TabIndex = 3;
-            this.button_Exit.Text = "Exit";
-            this.button_Exit.UseVisualStyleBackColor = false;
             // 
             // Form1
             // 
