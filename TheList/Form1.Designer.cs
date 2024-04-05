@@ -74,6 +74,7 @@
             this.button_Delete.TabIndex = 2;
             this.button_Delete.Text = "Delete";
             this.button_Delete.UseVisualStyleBackColor = false;
+            this.button_Delete.Click += new System.EventHandler(this.button_Delete_Click_1);
             // 
             // button_newEntry
             // 
@@ -117,7 +118,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.ClientSize = new System.Drawing.Size(800, 535);
+            this.ClientSize = new System.Drawing.Size(800, 552);
             this.Controls.Add(this.listPanel);
             this.Controls.Add(this.controlPanel);
             this.Name = "Form1";
