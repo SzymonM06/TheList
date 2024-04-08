@@ -14,13 +14,14 @@ namespace TheList
     {
         public Form1()
         {
-            InitializeComponent();
+            InitializeComponent(); 
         }
+
         private void button_newEntry_Click(object sender, EventArgs e)
         {
             // entryPanel
             Panel entryPanel = new Panel();
-            entryPanel.Height = 50;
+            entryPanel.Height = 52;
             entryPanel.Width = 300;
             entryPanel.BackColor = Color.LightGray;
 
@@ -31,7 +32,6 @@ namespace TheList
 
             // deletion checkBox
             CheckBox delete_checkBox = new CheckBox();
-            delete_checkBox.Text = "Delete";
             delete_checkBox.Location = new Point(90, 3); // Adjust position
             delete_checkBox.CheckedChanged += (s, ea) =>
             {
@@ -46,8 +46,50 @@ namespace TheList
                     entryPanel.Tag = null;
                 }
             };
+            // Episode counter for this entry
+            int episodeCounter = 1;
+
+            // Ep counter label
+            Label label_epCounter = new Label();
+            label_epCounter.Location = new Point(5, 30);
+            label_epCounter.Width = 60;
+            UpdateEpisodeCounterLabel(label_epCounter, episodeCounter);
+
+            // episode plus button
+
+            Button button_epPlus = new Button();
+            button_epPlus.Size = new Size(20, 20);
+            button_epPlus.Location = new Point(65, 27);
+            button_epPlus.Text = "+";
+            button_epPlus.Click += (s, ea) =>
+            {
+                episodeCounter++; 
+                UpdateEpisodeCounterLabel(label_epCounter, episodeCounter);
+            };
+
+            // episode minus button
+
+            Button button_epMinus = new Button();
+            button_epMinus.Size = new Size(20, 20);
+            button_epMinus.Location = new Point(90, 27);
+            button_epMinus.Text = "-";
+            button_epMinus.Click += (s, ea) =>
+            {
+                if (episodeCounter > 1) 
+                {
+                    episodeCounter--; 
+                    UpdateEpisodeCounterLabel(label_epCounter, episodeCounter);
+                }
+            };
+
 
             // labels
+
+            // Delete checkbox text
+            Label label_delete = new Label();
+            label_delete.Text = "Delete";
+            label_delete.Height = 12;
+            label_delete.Location = new Point(103, 8);
 
             // Title label
             Label label_Title = new Label();
@@ -58,15 +100,24 @@ namespace TheList
 
             // entryPanel controls
             entryPanel.Controls.Add(label_Title);
+            entryPanel.Controls.Add(label_epCounter);
+            entryPanel.Controls.Add(label_delete);
 
             entryPanel.Controls.Add(textBox);
             entryPanel.Controls.Add(delete_checkBox);
+            entryPanel.Controls.Add(button_epPlus);
+            entryPanel.Controls.Add(button_epMinus);
 
             // listPanel controls
             listPanel.Controls.Add(entryPanel);
 
             // Fill empty gaps after deletion
             FixEntryPanels();
+        }
+
+        private void UpdateEpisodeCounterLabel(Label label_epCounter, int episodeCounter)
+        {
+            label_epCounter.Text = $"Episode: {episodeCounter}";
         }
 
         private void button_Delete_Click_1(object sender, EventArgs e)
