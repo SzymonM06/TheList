@@ -34,12 +34,14 @@
             this.button_newEntry = new System.Windows.Forms.Button();
             this.Title = new System.Windows.Forms.Label();
             this.listPanel = new System.Windows.Forms.Panel();
+            this.button_Save = new System.Windows.Forms.Button();
             this.controlPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // controlPanel
             // 
             this.controlPanel.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.controlPanel.Controls.Add(this.button_Save);
             this.controlPanel.Controls.Add(this.button_Exit);
             this.controlPanel.Controls.Add(this.button_Delete);
             this.controlPanel.Controls.Add(this.button_newEntry);
@@ -113,6 +115,19 @@
             this.listPanel.Size = new System.Drawing.Size(775, 454);
             this.listPanel.TabIndex = 1;
             // 
+            // button_Save
+            // 
+            this.button_Save.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.button_Save.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_Save.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.button_Save.Location = new System.Drawing.Point(360, 4);
+            this.button_Save.Name = "button_Save";
+            this.button_Save.Size = new System.Drawing.Size(75, 34);
+            this.button_Save.TabIndex = 4;
+            this.button_Save.Text = "Save";
+            this.button_Save.UseVisualStyleBackColor = false;
+            this.button_Save.Click += new System.EventHandler(this.button_Save_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -137,6 +152,7 @@
         private System.Windows.Forms.Button button_newEntry;
         private System.Windows.Forms.Button button_Delete;
         private System.Windows.Forms.Button button_Exit;
+        private System.Windows.Forms.Button button_Save;
     }
 }
 
