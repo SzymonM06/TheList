@@ -15,118 +15,29 @@ namespace TheList
 {
     public partial class Form1 : Form
     {
+        // save file name
         private string dataFilePath = "data.json";
 
         public Form1()
         {
             InitializeComponent();
-            try
-            {
-                LoadData();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"An error occurred while loading data: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            LoadData();
         }
 
+        // ==================================================================
+        // create new entry (panel) button
         private void button_newEntry_Click(object sender, EventArgs e)
         {
-            // entryPanel
-            Panel entryPanel = new Panel();
-            entryPanel.Height = 52;
-            entryPanel.Width = 300;
-            entryPanel.BackColor = Color.LightGray;
+            EntryPanel entryPanel = new EntryPanel();
 
-            // textBox
-            TextBox textBox = new TextBox();
-            textBox.Size = new Size(50, 30); // Set size
-            textBox.Location = new Point(35, 5); // Set position
-
-            // deletion checkBox
-            CheckBox delete_checkBox = new CheckBox();
-            delete_checkBox.Location = new Point(90, 3); // Adjust position
-            delete_checkBox.CheckedChanged += (s, ea) =>
-            {
-                if (delete_checkBox.Checked)
-                {
-                    // Mark the panel for deletion
-                    entryPanel.Tag = "MarkedForDeletion";
-                }
-                else
-                {
-                    // Unmark the panel for deletion
-                    entryPanel.Tag = null;
-                }
-            };
-            // Episode counter for this entry
-            int episodeCounter = 1;
-
-            // Ep counter label
-            Label label_epCounter = new Label();
-            label_epCounter.Location = new Point(5, 30);
-            label_epCounter.Width = 60;
-            UpdateEpisodeCounterLabel(label_epCounter, episodeCounter);
-
-            // episode plus button
-
-            Button button_epPlus = new Button();
-            button_epPlus.Size = new Size(20, 20);
-            button_epPlus.Location = new Point(65, 27);
-            button_epPlus.Text = "+";
-            button_epPlus.Click += (s, ea) =>
-            {
-                episodeCounter++; 
-                UpdateEpisodeCounterLabel(label_epCounter, episodeCounter);
-            };
-
-            // episode minus button
-
-            Button button_epMinus = new Button();
-            button_epMinus.Size = new Size(20, 20);
-            button_epMinus.Location = new Point(90, 27);
-            button_epMinus.Text = "-";
-            button_epMinus.Click += (s, ea) =>
-            {
-                if (episodeCounter > 1) 
-                {
-                    episodeCounter--; 
-                    UpdateEpisodeCounterLabel(label_epCounter, episodeCounter);
-                }
-            };
-
-            // labels
-
-            // Delete checkbox text
-            Label label_delete = new Label();
-            label_delete.Text = "Delete";
-            label_delete.Height = 12;
-            label_delete.Location = new Point(103, 8);
-
-            // Title label
-            Label label_Title = new Label();
-            label_Title.Text = "Title:";
-            label_Title.Width = 30;
-            label_Title.Height = 12;
-            label_Title.Location = new Point(5, 8);
-
-            // entryPanel controls
-            entryPanel.Controls.Add(label_Title);
-            entryPanel.Controls.Add(label_epCounter);
-            entryPanel.Controls.Add(label_delete);
-
-            entryPanel.Controls.Add(textBox);
-            entryPanel.Controls.Add(delete_checkBox);
-            entryPanel.Controls.Add(button_epPlus);
-            entryPanel.Controls.Add(button_epMinus);
-
-            // listPanel controls
             listPanel.Controls.Add(entryPanel);
 
-            // Fill empty gaps after deletion
+            // unfuck the panels
             FixEntryPanels();
         }
 
+
+        // ==================================================================
         // save button
         private void button_Save_Click(object sender, EventArgs e)
         {
@@ -134,17 +45,19 @@ namespace TheList
 
             foreach (Control control in listPanel.Controls)
             {
-                if (control is Panel entryPanel)
+                if (control is EntryPanel entryPanel)
                 {
                     EntryData entryData = new EntryData();
+                    entryData.X = entryPanel.Location.X;
+                    entryData.Y = entryPanel.Location.Y;
 
                     foreach (Control entryControl in entryPanel.Controls)
                     {
-                        if (entryControl is TextBox textBox)
+                        if (entryControl is TextBox textBox && entryControl.Name == "TextBox_Title")
                         {
                             entryData.TextBoxContent = textBox.Text;
                         }
-                        else if (entryControl is CheckBox deleteCheckBox)
+                        else if (entryControl is CheckBox deleteCheckBox && entryControl.Name == "delete_checkBox")
                         {
                             entryData.DeleteChecked = deleteCheckBox.Checked;
                         }
@@ -163,6 +76,19 @@ namespace TheList
             File.WriteAllText(dataFilePath, jsonData);
         }
 
+        // ==================================================================
+        // holding data to put into save file
+        private class EntryData
+        {
+            public string TextBoxContent { get; set; }
+            public int EpisodeCounter { get; set; }
+            public bool DeleteChecked { get; set; }
+            public int X { get; set; }
+            public int Y { get; set; }
+        }
+
+        // ==================================================================
+        // load data method
         private void LoadData()
         {
             if (File.Exists(dataFilePath))
@@ -174,93 +100,48 @@ namespace TheList
 
                     foreach (var entryData in entries)
                     {
-                        // Create a new panel
-                        Panel entryPanel = new Panel();
-                        entryPanel.Height = 52;
-                        entryPanel.Width = 300;
-                        entryPanel.BackColor = Color.LightGray;
+                        EntryPanel entryPanel = new EntryPanel();
+                        entryPanel.Location = new Point(entryData.X, entryData.Y);
 
-                        // Add text box to the panel
-                        TextBox textBox = new TextBox();
-                        textBox.Size = new Size(50, 30);
-                        textBox.Location = new Point(35, 5);
-                        textBox.Text = entryData.TextBoxContent;
-                        entryPanel.Controls.Add(textBox);
+                        // Set properties based on entryData
+                        entryPanel.TextBoxText = entryData.TextBoxContent;
+                        entryPanel.DeleteCheckBoxChecked = entryData.DeleteChecked;
+                        entryPanel.EpisodeCounterText = $"Episode: {entryData.EpisodeCounter}";
 
-                        // Add other controls
-
-                        // Add delete checkbox
-                        CheckBox deleteCheckBox = new CheckBox();
-                        deleteCheckBox.Location = new Point(90, 3);
-                        deleteCheckBox.Checked = entryData.DeleteChecked;
-                        entryPanel.Controls.Add(deleteCheckBox);
-
-                        // Add episode counter label
-                        Label label_epCounter = new Label();
-                        label_epCounter.Location = new Point(5, 30);
-                        label_epCounter.Width = 60;
-                        label_epCounter.Text = $"Episode: {entryData.EpisodeCounter}";
-                        entryPanel.Controls.Add(label_epCounter);
-
-                        // Add title label
-                        Label label_Title = new Label();
-                        label_Title.Text = "Title:";
-                        label_Title.Width = 30;
-                        label_Title.Height = 12;
-                        label_Title.Location = new Point(5, 8);
-                        entryPanel.Controls.Add(label_Title);
-
-                        // Add +/- buttons
-                        Button button_epPlus = new Button();
-                        button_epPlus.Size = new Size(20, 20);
-                        button_epPlus.Location = new Point(65, 27);
-                        button_epPlus.Text = "+";
-                        entryPanel.Controls.Add(button_epPlus);
-
-                        Button button_epMinus = new Button();
-                        button_epMinus.Size = new Size(20, 20);
-                        button_epMinus.Location = new Point(90, 27);
-                        button_epMinus.Text = "-";
-                        entryPanel.Controls.Add(button_epMinus);
-
-                        // Add the panel to the listPanel
                         listPanel.Controls.Add(entryPanel);
                     }
                 }
             }
         }
 
-        // Class to hold entry data
-        private class EntryData
-        {
-            public string TextBoxContent { get; set; }
-            public int EpisodeCounter { get; set; }
-            public bool DeleteChecked { get; set; }
-        }
-
-        private void UpdateEpisodeCounterLabel(Label label_epCounter, int episodeCounter)
-        {
-            label_epCounter.Text = $"Episode: {episodeCounter}";
-        }
-
+        // ==================================================================
+        // delete button
         private void button_Delete_Click_1(object sender, EventArgs e)
         {
+            // Display confirmation message box
             DialogResult result = MessageBox.Show("Are you sure you want to delete the selected entries?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (result == DialogResult.Yes)
             {
+                // Loop through all EntryPanel controls
                 for (int i = listPanel.Controls.Count - 1; i >= 0; i--)
                 {
-                    Control control = listPanel.Controls[i];
-                    if (control is Panel panel && panel.Tag?.ToString() == "MarkedForDeletion")
+                    if (listPanel.Controls[i] is EntryPanel entryPanel)
                     {
-                        listPanel.Controls.RemoveAt(i);
+                        // Check if the delete checkbox is checked
+                        if (entryPanel.DeleteCheckBoxChecked)
+                        {
+                            listPanel.Controls.RemoveAt(i);
+                        }
                     }
                 }
+
                 FixEntryPanels();
             }
         }
 
+        // ==================================================================
+        // reorganising the panels (entries) after deleting or creating one
         private void FixEntryPanels()
         {
             int top = 0;
