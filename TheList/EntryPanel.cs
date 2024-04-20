@@ -19,7 +19,7 @@ namespace TheList
         }
 
         // default episode counter value
-        int episodeCounter = 0;
+       private int episodeCounter = 0;
 
         private void delete_checkBox_CheckedChanged(object sender, EventArgs e)
         {
@@ -50,22 +50,27 @@ namespace TheList
             }
         }
 
-        public string TextBoxText
+
+        public string Title
         {
             get { return textBox_Title.Text; }
             set { textBox_Title.Text = value; }
         }
 
-        public bool DeleteCheckBoxChecked
+        public bool DeleteChecked
         {
             get { return delete_checkBox.Checked; }
             set { delete_checkBox.Checked = value; }
         }
 
-        public string EpisodeCounterText
+        public int EpisodeCounter
         {
-            get { return label_epCounter.Text; }
-            set { label_epCounter.Text = value; }
+            get { return episodeCounter; }
+            set
+            {
+                episodeCounter = value;
+                label_epCounter.Text = $"Episode: {episodeCounter}";
+            }
         }
     }
 }

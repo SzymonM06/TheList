@@ -15,9 +15,9 @@ namespace TheList
 {
     public partial class Form1 : Form
     {
-        // save file name
-        private string dataFilePath = "data.json";
-
+        private string dataFilePath = "data.json"; // save file name
+        private List<EntryData> entries = new List<EntryData>(); // list of saving data
+        int top = 0; // for loading in new entries in LoadData
         public Form1()
         {
             InitializeComponent();
@@ -28,9 +28,12 @@ namespace TheList
         // create new entry (panel) button
         private void button_newEntry_Click(object sender, EventArgs e)
         {
+            listPanel.VerticalScroll.Value = 0; // scroll all the way up
+
             EntryPanel entryPanel = new EntryPanel();
 
             listPanel.Controls.Add(entryPanel);
+            entryPanel.EpisodeCounter = 0;
 
             // unfuck the panels
             FixEntryPanels();
@@ -41,34 +44,15 @@ namespace TheList
         // save button
         private void button_Save_Click(object sender, EventArgs e)
         {
-            List<EntryData> entries = new List<EntryData>();
-
-            foreach (Control control in listPanel.Controls)
+            entries.Clear(); // Clear existing entries
+            foreach (EntryPanel entryPanel in listPanel.Controls)
             {
-                if (control is EntryPanel entryPanel)
+                entries.Add(new EntryData
                 {
-                    EntryData entryData = new EntryData();
-                    entryData.X = entryPanel.Location.X;
-                    entryData.Y = entryPanel.Location.Y;
-
-                    foreach (Control entryControl in entryPanel.Controls)
-                    {
-                        if (entryControl is TextBox textBox && entryControl.Name == "TextBox_Title")
-                        {
-                            entryData.TextBoxContent = textBox.Text;
-                        }
-                        else if (entryControl is CheckBox deleteCheckBox && entryControl.Name == "delete_checkBox")
-                        {
-                            entryData.DeleteChecked = deleteCheckBox.Checked;
-                        }
-                        else if (entryControl is Label label && label.Name == "label_epCounter")
-                        {
-                            entryData.EpisodeCounter = int.Parse(label.Text.Split(':')[1].Trim());
-                        }
-                    }
-
-                    entries.Add(entryData);
-                }
+                    Title = entryPanel.Title,
+                    DeleteChecked = entryPanel.DeleteChecked,
+                    EpisodeCounter = entryPanel.EpisodeCounter
+                });
             }
 
             // Serialize and write the data to the file
@@ -80,11 +64,9 @@ namespace TheList
         // holding data to put into save file
         private class EntryData
         {
-            public string TextBoxContent { get; set; }
-            public int EpisodeCounter { get; set; }
+            public string Title { get; set; }
             public bool DeleteChecked { get; set; }
-            public int X { get; set; }
-            public int Y { get; set; }
+            public int EpisodeCounter { get; set; }
         }
 
         // ==================================================================
@@ -93,46 +75,37 @@ namespace TheList
         {
             if (File.Exists(dataFilePath))
             {
-                using (StreamReader reader = new StreamReader(dataFilePath))
+                string jsonData = File.ReadAllText(dataFilePath);
+                entries = JsonConvert.DeserializeObject<List<EntryData>>(jsonData);
+
+                foreach (EntryData entryData in entries)
                 {
-                    var jsonData = reader.ReadToEnd();
-                    var entries = JsonConvert.DeserializeObject<List<EntryData>>(jsonData);
-
-                    foreach (var entryData in entries)
-                    {
-                        EntryPanel entryPanel = new EntryPanel();
-                        entryPanel.Location = new Point(entryData.X, entryData.Y);
-
-                        // Set properties based on entryData
-                        entryPanel.TextBoxText = entryData.TextBoxContent;
-                        entryPanel.DeleteCheckBoxChecked = entryData.DeleteChecked;
-                        entryPanel.EpisodeCounterText = $"Episode: {entryData.EpisodeCounter}";
-
-                        listPanel.Controls.Add(entryPanel);
-                    }
+                    EntryPanel entryPanel = new EntryPanel();
+                    entryPanel.Location = new Point(5, top);
+                    entryPanel.Title = entryData.Title;
+                    entryPanel.DeleteChecked = entryData.DeleteChecked;
+                    entryPanel.EpisodeCounter = entryData.EpisodeCounter;
+                    listPanel.Controls.Add(entryPanel);
+                    top += entryPanel.Height + 5;
                 }
             }
         }
 
         // ==================================================================
         // delete button
-        private void button_Delete_Click_1(object sender, EventArgs e)
+        private void button_Delete_Click(object sender, EventArgs e)
         {
-            // Display confirmation message box
+            listPanel.VerticalScroll.Value = 0; // scroll all the way up
+
             DialogResult result = MessageBox.Show("Are you sure you want to delete the selected entries?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (result == DialogResult.Yes)
             {
-                // Loop through all EntryPanel controls
                 for (int i = listPanel.Controls.Count - 1; i >= 0; i--)
                 {
-                    if (listPanel.Controls[i] is EntryPanel entryPanel)
+                    if (listPanel.Controls[i] is EntryPanel entryPanel && entryPanel.DeleteChecked)
                     {
-                        // Check if the delete checkbox is checked
-                        if (entryPanel.DeleteCheckBoxChecked)
-                        {
-                            listPanel.Controls.RemoveAt(i);
-                        }
+                        listPanel.Controls.RemoveAt(i);
                     }
                 }
 
