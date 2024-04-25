@@ -72,5 +72,23 @@ namespace TheList
                 label_epCounter.Text = $"Episode: {episodeCounter}";
             }
         }
+
+        private void moveUp_Click(object sender, EventArgs e)
+        {
+            int index = Parent.Controls.GetChildIndex(this);
+            if (index > 0)
+            {
+                Parent.Controls.SetChildIndex(this, index - 1);
+            }
+        }
+
+        private void moveDown_Click(object sender, EventArgs e)
+        {
+            int index = Parent.Controls.GetChildIndex(this);
+            if (index < Parent.Controls.Count - 1)
+            {
+                Parent.Controls.SetChildIndex(this, index + 1);
+            }
+        }
     }
 }

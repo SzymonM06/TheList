@@ -35,12 +35,16 @@
             this.delete_checkBox = new System.Windows.Forms.CheckBox();
             this.label_Title = new System.Windows.Forms.Label();
             this.textBox_Title = new System.Windows.Forms.TextBox();
+            this.moveDown = new System.Windows.Forms.Button();
+            this.moveUp = new System.Windows.Forms.Button();
             this.entryPanel_.SuspendLayout();
             this.SuspendLayout();
             // 
             // entryPanel_
             // 
             this.entryPanel_.BackColor = System.Drawing.Color.LightGray;
+            this.entryPanel_.Controls.Add(this.moveUp);
+            this.entryPanel_.Controls.Add(this.moveDown);
             this.entryPanel_.Controls.Add(this.label_epCounter);
             this.entryPanel_.Controls.Add(this.button_epMinus);
             this.entryPanel_.Controls.Add(this.button_epPlus);
@@ -108,6 +112,28 @@
             this.textBox_Title.Size = new System.Drawing.Size(200, 20);
             this.textBox_Title.TabIndex = 0;
             // 
+            // moveDown
+            // 
+            this.moveDown.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.moveDown.Location = new System.Drawing.Point(320, 70);
+            this.moveDown.Name = "moveDown";
+            this.moveDown.Size = new System.Drawing.Size(27, 27);
+            this.moveDown.TabIndex = 6;
+            this.moveDown.Text = "\\/";
+            this.moveDown.UseVisualStyleBackColor = true;
+            this.moveDown.Click += new System.EventHandler(this.moveDown_Click);
+            // 
+            // moveUp
+            // 
+            this.moveUp.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.moveUp.Location = new System.Drawing.Point(320, 42);
+            this.moveUp.Name = "moveUp";
+            this.moveUp.Size = new System.Drawing.Size(27, 27);
+            this.moveUp.TabIndex = 7;
+            this.moveUp.Text = "/\\";
+            this.moveUp.UseVisualStyleBackColor = true;
+            this.moveUp.Click += new System.EventHandler(this.moveUp_Click);
+            // 
             // EntryPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -130,5 +156,7 @@
         private System.Windows.Forms.Button button_epMinus;
         private System.Windows.Forms.Button button_epPlus;
         private System.Windows.Forms.Label label_epCounter;
+        private System.Windows.Forms.Button moveDown;
+        private System.Windows.Forms.Button moveUp;
     }
 }
