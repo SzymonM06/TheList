@@ -29,19 +29,20 @@
         private void InitializeComponent()
         {
             this.entryPanel_ = new System.Windows.Forms.Panel();
+            this.moveUp = new System.Windows.Forms.Button();
+            this.moveDown = new System.Windows.Forms.Button();
             this.label_epCounter = new System.Windows.Forms.Label();
             this.button_epMinus = new System.Windows.Forms.Button();
             this.button_epPlus = new System.Windows.Forms.Button();
             this.delete_checkBox = new System.Windows.Forms.CheckBox();
             this.label_Title = new System.Windows.Forms.Label();
             this.textBox_Title = new System.Windows.Forms.TextBox();
-            this.moveDown = new System.Windows.Forms.Button();
-            this.moveUp = new System.Windows.Forms.Button();
             this.entryPanel_.SuspendLayout();
             this.SuspendLayout();
             // 
             // entryPanel_
             // 
+            this.entryPanel_.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.entryPanel_.BackColor = System.Drawing.Color.LightGray;
             this.entryPanel_.Controls.Add(this.moveUp);
             this.entryPanel_.Controls.Add(this.moveDown);
@@ -55,6 +56,30 @@
             this.entryPanel_.Name = "entryPanel_";
             this.entryPanel_.Size = new System.Drawing.Size(350, 100);
             this.entryPanel_.TabIndex = 0;
+            // 
+            // moveUp
+            // 
+            this.moveUp.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.moveUp.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.moveUp.Location = new System.Drawing.Point(320, 42);
+            this.moveUp.Name = "moveUp";
+            this.moveUp.Size = new System.Drawing.Size(27, 27);
+            this.moveUp.TabIndex = 7;
+            this.moveUp.Text = "/\\";
+            this.moveUp.UseVisualStyleBackColor = true;
+            this.moveUp.Click += new System.EventHandler(this.moveUp_Click);
+            // 
+            // moveDown
+            // 
+            this.moveDown.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.moveDown.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.moveDown.Location = new System.Drawing.Point(320, 70);
+            this.moveDown.Name = "moveDown";
+            this.moveDown.Size = new System.Drawing.Size(27, 27);
+            this.moveDown.TabIndex = 6;
+            this.moveDown.Text = "\\/";
+            this.moveDown.UseVisualStyleBackColor = true;
+            this.moveDown.Click += new System.EventHandler(this.moveDown_Click);
             // 
             // label_epCounter
             // 
@@ -111,28 +136,6 @@
             this.textBox_Title.Name = "textBox_Title";
             this.textBox_Title.Size = new System.Drawing.Size(200, 20);
             this.textBox_Title.TabIndex = 0;
-            // 
-            // moveDown
-            // 
-            this.moveDown.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.moveDown.Location = new System.Drawing.Point(320, 70);
-            this.moveDown.Name = "moveDown";
-            this.moveDown.Size = new System.Drawing.Size(27, 27);
-            this.moveDown.TabIndex = 6;
-            this.moveDown.Text = "\\/";
-            this.moveDown.UseVisualStyleBackColor = true;
-            this.moveDown.Click += new System.EventHandler(this.moveDown_Click);
-            // 
-            // moveUp
-            // 
-            this.moveUp.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.moveUp.Location = new System.Drawing.Point(320, 42);
-            this.moveUp.Name = "moveUp";
-            this.moveUp.Size = new System.Drawing.Size(27, 27);
-            this.moveUp.TabIndex = 7;
-            this.moveUp.Text = "/\\";
-            this.moveUp.UseVisualStyleBackColor = true;
-            this.moveUp.Click += new System.EventHandler(this.moveUp_Click);
             // 
             // EntryPanel
             // 

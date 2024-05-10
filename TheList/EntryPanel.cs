@@ -16,10 +16,22 @@ namespace TheList
         public EntryPanel()
         {
             InitializeComponent();
+            this.HandleCreated += EntryPanel_HandleCreated;
+
+        }
+
+        private void EntryPanel_HandleCreated(object sender, EventArgs e)
+        {
+            // Set initial width to match the parent container (listPanel)
+            if (this.Parent != null)
+            {
+                this.Width = this.Parent.Width - 53; // Adjust the width as needed (considering margins, padding, etc.)
+
+            }
         }
 
         // default episode counter value
-       private int episodeCounter = 0;
+        private int episodeCounter = 0;
 
         private void delete_checkBox_CheckedChanged(object sender, EventArgs e)
         {
@@ -75,20 +87,16 @@ namespace TheList
 
         private void moveUp_Click(object sender, EventArgs e)
         {
-            int index = Parent.Controls.GetChildIndex(this);
-            if (index > 0)
-            {
-                Parent.Controls.SetChildIndex(this, index - 1);
-            }
+            Form1 form = this.FindForm() as Form1;
+            form.ScrollToTop(); // Scroll to the top before moving
+            form.MoveEntryUp(this); // Move the entry up
         }
 
         private void moveDown_Click(object sender, EventArgs e)
         {
-            int index = Parent.Controls.GetChildIndex(this);
-            if (index < Parent.Controls.Count - 1)
-            {
-                Parent.Controls.SetChildIndex(this, index + 1);
-            }
+            Form1 form = this.FindForm() as Form1;
+            form.ScrollToTop(); // Scroll to the top before moving
+            form.MoveEntryDown(this); // Move the entry down
         }
     }
 }

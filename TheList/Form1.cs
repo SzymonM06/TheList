@@ -18,10 +18,67 @@ namespace TheList
         private string dataFilePath = "data.json"; // save file name
         private List<EntryData> entries = new List<EntryData>(); // list of saving data
         int top = 0; // for loading in new entries in LoadData
+        private int originalScrollPosition = 0;
         public Form1()
         {
             InitializeComponent();
             LoadData();
+            this.Resize += Form1_Resize;
+        }
+
+        private void Form1_Resize(object sender, EventArgs e)
+        {
+            listPanel.Size = new Size(this.ClientSize.Width - 25, this.ClientSize.Height - 70);
+            controlPanel.Size = new Size(this.ClientSize.Width - 25, controlPanel.Height);
+            button_Exit.Location = new Point(controlPanel.Width - 79, 4);
+
+            int margin = 10; // Adjust this margin as needed
+
+            int availableWidth = listPanel.ClientSize.Width - SystemInformation.VerticalScrollBarWidth - margin * 2; // Consider scrollbar width and margin
+            foreach (Control control in listPanel.Controls)
+            {
+                if (control is EntryPanel entryPanel)
+                {
+                    entryPanel.Width = availableWidth;
+                }
+            }
+        }
+
+        public void ScrollToTop()
+        {
+            originalScrollPosition = listPanel.VerticalScroll.Value;
+            listPanel.VerticalScroll.Value = 0;
+        }
+
+        private void RestoreScrollPosition()
+        {
+            listPanel.VerticalScroll.Value = originalScrollPosition; // Restore the original scroll position
+        }
+
+        public void MoveEntryUp(EntryPanel entryPanel)
+        {
+            ScrollToTop(); // Scroll to the top before moving
+            int index = listPanel.Controls.GetChildIndex(entryPanel);
+            if (index > 0)
+            {
+                listPanel.Controls.SetChildIndex(entryPanel, index - 1);
+                entryPanel.Refresh(); // Refresh the entry panel to update its position
+                FixEntryPanels();
+            }
+            RestoreScrollPosition();
+        }
+
+        public void MoveEntryDown(EntryPanel entryPanel)
+        {
+            ScrollToTop();
+            int index = listPanel.Controls.GetChildIndex(entryPanel);
+            if (index < listPanel.Controls.Count - 1)
+            {
+                listPanel.Controls.SetChildIndex(entryPanel, index + 1);
+                entryPanel.Refresh(); // Refresh the entry panel to update its position
+                FixEntryPanels();
+            }
+            RestoreScrollPosition();
         }
 
         // ==================================================================
@@ -115,7 +172,7 @@ namespace TheList
 
         // ==================================================================
         // reorganising the panels (entries) after deleting or creating one
-        private void FixEntryPanels()
+        public void FixEntryPanels()
         {
             int top = 0;
             foreach (Control control in listPanel.Controls)

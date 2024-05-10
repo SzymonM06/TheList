@@ -137,7 +137,7 @@
             this.Controls.Add(this.listPanel);
             this.Controls.Add(this.controlPanel);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "The List";
             this.controlPanel.ResumeLayout(false);
             this.controlPanel.PerformLayout();
             this.ResumeLayout(false);
