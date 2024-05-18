@@ -20,6 +20,23 @@ namespace TheList
 
         }
 
+        private void button_SelectImage_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.InitialDirectory = "c:\\";
+                openFileDialog.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp;*.gif";
+                openFileDialog.FilterIndex = 1;
+                openFileDialog.RestoreDirectory = true;
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string selectedFilePath = openFileDialog.FileName;
+                    pictureBox_Image.Image = Image.FromFile(selectedFilePath);
+                }
+            }
+        }
+
         private void EntryPanel_HandleCreated(object sender, EventArgs e)
         {
             // Set initial width to match the parent container (listPanel)
