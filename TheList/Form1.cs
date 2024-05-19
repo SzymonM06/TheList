@@ -16,58 +16,68 @@ namespace TheList
     public partial class Form1 : Form
     {
         private string dataFilePath = "data.json"; // save file name
-        private List<EntryData> entries = new List<EntryData>(); // list of saving data
-        int top = 0; // for loading in new entries in LoadData
+        private List<EntryData> entries = new List<EntryData>(); // list of saving dataF
+        int top = 0; // default top possition, used for adding entrypanels
         private int originalScrollPosition = 0;
         public Form1()
         {
             InitializeComponent();
-            LoadData();
+            LoadData(); 
             this.Resize += Form1_Resize;
+            RefreshEntryPanels(); //refresh on load
         }
 
+        // ==================================================================
+        // Saving the selected image to the app directory
+        private string SaveImageFile(Image image)
+        {
+            string directoryPath = Path.Combine(Application.StartupPath, "imgs");
+            if (!Directory.Exists(directoryPath))
+            {
+                Directory.CreateDirectory(directoryPath);
+            }
+
+            string fileName = Path.Combine(directoryPath, Guid.NewGuid().ToString() + ".png"); // Generate a unique file name
+            image.Save(fileName, System.Drawing.Imaging.ImageFormat.Png);
+            return fileName;
+        }
+
+        // ==================================================================
+        // Handling the resizing of elements in Form1
         private void Form1_Resize(object sender, EventArgs e)
         {
             listPanel.Size = new Size(this.ClientSize.Width - 25, this.ClientSize.Height - 70);
             controlPanel.Size = new Size(this.ClientSize.Width - 25, controlPanel.Height);
-            button_Exit.Location = new Point(controlPanel.Width - 79, 4);
 
-            int margin = 10; // Adjust this margin as needed
+            int margin = 10;
 
-            int availableWidth = listPanel.ClientSize.Width - SystemInformation.VerticalScrollBarWidth - margin * 2; // Consider scrollbar width and margin
+            int availableWidth = listPanel.ClientSize.Width - SystemInformation.VerticalScrollBarWidth - margin * 2;
             foreach (Control control in listPanel.Controls)
             {
                 if (control is EntryPanel entryPanel)
                 {
                     entryPanel.Width = availableWidth;
+                    
                 }
             }
         }
 
-        public void ScrollToTop()
-        {
-            originalScrollPosition = listPanel.VerticalScroll.Value;
-            listPanel.VerticalScroll.Value = 0;
-        }
-
-        private void RestoreScrollPosition()
-        {
-            listPanel.VerticalScroll.Value = originalScrollPosition; // Restore the original scroll position
-        }
-
+        // ==================================================================
+        // move a entrypanel up
         public void MoveEntryUp(EntryPanel entryPanel)
         {
-            ScrollToTop(); // Scroll to the top before moving
+            ScrollToTop(); 
             int index = listPanel.Controls.GetChildIndex(entryPanel);
             if (index > 0)
             {
                 listPanel.Controls.SetChildIndex(entryPanel, index - 1);
-                entryPanel.Refresh(); // Refresh the entry panel to update its position
-                FixEntryPanels();
+                RefreshEntryPanels();
             }
             RestoreScrollPosition();
         }
 
+        // ==================================================================
+        // move a entrypanel down
         public void MoveEntryDown(EntryPanel entryPanel)
         {
             ScrollToTop();
@@ -75,8 +85,7 @@ namespace TheList
             if (index < listPanel.Controls.Count - 1)
             {
                 listPanel.Controls.SetChildIndex(entryPanel, index + 1);
-                entryPanel.Refresh(); // Refresh the entry panel to update its position
-                FixEntryPanels();
+                RefreshEntryPanels();
             }
             RestoreScrollPosition();
         }
@@ -85,15 +94,12 @@ namespace TheList
         // create new entry (panel) button
         private void button_newEntry_Click(object sender, EventArgs e)
         {
-            listPanel.VerticalScroll.Value = 0; // scroll all the way up
-
+            ScrollToTop();
             EntryPanel entryPanel = new EntryPanel();
 
             listPanel.Controls.Add(entryPanel);
             entryPanel.EpisodeCounter = 0;
-
-            // unfuck the panels
-            FixEntryPanels();
+            RefreshEntryPanels();
         }
 
 
@@ -104,11 +110,18 @@ namespace TheList
             entries.Clear(); // Clear existing entries
             foreach (EntryPanel entryPanel in listPanel.Controls)
             {
+                string imagePath = null;
+                if (entryPanel.Image != null)
+                {
+                    imagePath = SaveImageFile(entryPanel.Image);
+                }
+
                 entries.Add(new EntryData
                 {
                     Title = entryPanel.Title,
                     DeleteChecked = entryPanel.DeleteChecked,
-                    EpisodeCounter = entryPanel.EpisodeCounter
+                    EpisodeCounter = entryPanel.EpisodeCounter,
+                    ImagePath = imagePath // Save the image file path
                 });
             }
 
@@ -124,10 +137,11 @@ namespace TheList
             public string Title { get; set; }
             public bool DeleteChecked { get; set; }
             public int EpisodeCounter { get; set; }
+            public string ImagePath { get; set; }
         }
 
         // ==================================================================
-        // load data method
+        // load data 
         private void LoadData()
         {
             if (File.Exists(dataFilePath))
@@ -144,6 +158,15 @@ namespace TheList
                     entryPanel.EpisodeCounter = entryData.EpisodeCounter;
                     listPanel.Controls.Add(entryPanel);
                     top += entryPanel.Height + 5;
+
+                    // Load image if ImagePath is not null
+                    if (!string.IsNullOrEmpty(entryData.ImagePath) && File.Exists(entryData.ImagePath))
+                    {
+                        entryPanel.Image = Image.FromFile(entryData.ImagePath);
+                    }
+
+                    listPanel.Controls.Add(entryPanel);
+                    top += entryPanel.Height + 5;
                 }
             }
         }
@@ -152,34 +175,66 @@ namespace TheList
         // delete button
         private void button_Delete_Click(object sender, EventArgs e)
         {
-            listPanel.VerticalScroll.Value = 0; // scroll all the way up
+            bool anyDeleteChecked = false;
 
-            DialogResult result = MessageBox.Show("Are you sure you want to delete the selected entries?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-            if (result == DialogResult.Yes)
+            // Check if any delete checkbox is checked
+            foreach (Control control in listPanel.Controls)
             {
-                for (int i = listPanel.Controls.Count - 1; i >= 0; i--)
+                if (control is EntryPanel entryPanel && entryPanel.DeleteChecked)
                 {
-                    if (listPanel.Controls[i] is EntryPanel entryPanel && entryPanel.DeleteChecked)
+                    anyDeleteChecked = true;
+                    break;
+                }
+            }
+
+            if (anyDeleteChecked)
+            {
+                ScrollToTop();
+
+                DialogResult result = MessageBox.Show("Are you sure you want to delete the selected entries?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (result == DialogResult.Yes)
+                {
+                    for (int i = listPanel.Controls.Count - 1; i >= 0; i--)
                     {
-                        listPanel.Controls.RemoveAt(i);
+                        if (listPanel.Controls[i] is EntryPanel entryPanel && entryPanel.DeleteChecked)
+                        {
+                            listPanel.Controls.RemoveAt(i);
+                        }
                     }
+
+                    RefreshEntryPanels();
                 }
 
-                FixEntryPanels();
+                RestoreScrollPosition();
             }
         }
 
         // ==================================================================
-        // reorganising the panels (entries) after deleting or creating one
-        public void FixEntryPanels()
+        // Refreshing all the entrypanels
+        public void RefreshEntryPanels()
         {
             int top = 0;
-            foreach (Control control in listPanel.Controls)
+            for (int i = 0; i < listPanel.Controls.Count; i++)
             {
-                control.Location = new Point(5, top);
-                top += control.Height + 5;
+                if (listPanel.Controls[i] is EntryPanel entryPanel)
+                {
+                    entryPanel.Location = new Point(5, top);
+                    entryPanel.NumberListText = (i + 1).ToString(); // Update using the public property
+                    top += entryPanel.Height + 5;
+                }
             }
+        }
+
+        public void ScrollToTop()
+        {
+            originalScrollPosition = listPanel.VerticalScroll.Value;
+            listPanel.VerticalScroll.Value = 0;
+        }
+
+        private void RestoreScrollPosition()
+        {
+            listPanel.VerticalScroll.Value = originalScrollPosition; // Restore the original scroll position
         }
     }
 }

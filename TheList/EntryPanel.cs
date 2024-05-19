@@ -16,11 +16,12 @@ namespace TheList
         public EntryPanel()
         {
             InitializeComponent();
-            this.HandleCreated += EntryPanel_HandleCreated;
-
+            this.HandleCreated += EntryPanel_size;
         }
 
-        private void button_SelectImage_Click(object sender, EventArgs e)
+        // ==================================================================
+        // making so after clicking the pictureBox a file picker opens
+        private void pictureBox_Image_Click(object sender, EventArgs e)
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
@@ -28,28 +29,29 @@ namespace TheList
                 openFileDialog.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp;*.gif";
                 openFileDialog.FilterIndex = 1;
                 openFileDialog.RestoreDirectory = true;
+                openFileDialog.Title = "Choose file";
 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     string selectedFilePath = openFileDialog.FileName;
                     pictureBox_Image.Image = Image.FromFile(selectedFilePath);
+                    Image = pictureBox_Image.Image;
                 }
             }
         }
 
-        private void EntryPanel_HandleCreated(object sender, EventArgs e)
+        // ==================================================================
+        // adds a default size for entrypanels
+        private void EntryPanel_size(object sender, EventArgs e)
         {
-            // Set initial width to match the parent container (listPanel)
             if (this.Parent != null)
             {
-                this.Width = this.Parent.Width - 53; // Adjust the width as needed (considering margins, padding, etc.)
-
+                this.Width = this.Parent.Width - 53;
             }
         }
 
-        // default episode counter value
-        private int episodeCounter = 0;
-
+        // ==================================================================
+        // self explanatory i think
         private void delete_checkBox_CheckedChanged(object sender, EventArgs e)
         {
             if (delete_checkBox.Checked)
@@ -64,6 +66,11 @@ namespace TheList
             }
         }
 
+        // ==================================================================
+        // Episode counter
+
+        // default episode counter value
+        private int episodeCounter = 0;
         private void button_epPlus_Click(object sender, EventArgs e)
         {
             episodeCounter++;
@@ -79,6 +86,28 @@ namespace TheList
             }
         }
 
+        // ==================================================================
+        // Moving entrypanels up and down
+        private void moveUp_Click(object sender, EventArgs e)
+        {
+            Form1 form = this.FindForm() as Form1;
+            form.MoveEntryUp(this); 
+        }
+
+        private void moveDown_Click(object sender, EventArgs e)
+        {
+            Form1 form = this.FindForm() as Form1;
+            form.MoveEntryDown(this); 
+        }
+
+
+        // ==================================================================
+        // Making so these are accessable to Form1.cs
+        public string NumberListText
+        {
+            get { return label_NumberList.Text; }
+            set { label_NumberList.Text = value; }
+        }
 
         public string Title
         {
@@ -102,18 +131,10 @@ namespace TheList
             }
         }
 
-        private void moveUp_Click(object sender, EventArgs e)
+        public Image Image
         {
-            Form1 form = this.FindForm() as Form1;
-            form.ScrollToTop(); // Scroll to the top before moving
-            form.MoveEntryUp(this); // Move the entry up
-        }
-
-        private void moveDown_Click(object sender, EventArgs e)
-        {
-            Form1 form = this.FindForm() as Form1;
-            form.ScrollToTop(); // Scroll to the top before moving
-            form.MoveEntryDown(this); // Move the entry down
+            get { return pictureBox_Image.Image; }
+            set { pictureBox_Image.Image = value; }
         }
     }
 }

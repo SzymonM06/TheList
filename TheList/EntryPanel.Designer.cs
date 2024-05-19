@@ -30,8 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EntryPanel));
             this.entryPanel_ = new System.Windows.Forms.Panel();
+            this.label_NumberList = new System.Windows.Forms.Label();
             this.pictureBox_Image = new System.Windows.Forms.PictureBox();
-            this.button_SelectImage = new System.Windows.Forms.Button();
             this.moveUp = new System.Windows.Forms.Button();
             this.moveDown = new System.Windows.Forms.Button();
             this.label_epCounter = new System.Windows.Forms.Label();
@@ -48,8 +48,8 @@
             // 
             this.entryPanel_.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.entryPanel_.BackColor = System.Drawing.Color.LightGray;
+            this.entryPanel_.Controls.Add(this.label_NumberList);
             this.entryPanel_.Controls.Add(this.pictureBox_Image);
-            this.entryPanel_.Controls.Add(this.button_SelectImage);
             this.entryPanel_.Controls.Add(this.moveUp);
             this.entryPanel_.Controls.Add(this.moveDown);
             this.entryPanel_.Controls.Add(this.label_epCounter);
@@ -60,8 +60,19 @@
             this.entryPanel_.Controls.Add(this.textBox_Title);
             this.entryPanel_.Location = new System.Drawing.Point(0, 0);
             this.entryPanel_.Name = "entryPanel_";
-            this.entryPanel_.Size = new System.Drawing.Size(540, 163);
+            this.entryPanel_.Size = new System.Drawing.Size(1481, 429);
             this.entryPanel_.TabIndex = 0;
+            // 
+            // label_NumberList
+            // 
+            this.label_NumberList.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label_NumberList.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label_NumberList.Location = new System.Drawing.Point(1369, 165);
+            this.label_NumberList.Name = "label_NumberList";
+            this.label_NumberList.Size = new System.Drawing.Size(128, 55);
+            this.label_NumberList.TabIndex = 10;
+            this.label_NumberList.Text = "0";
+            this.label_NumberList.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // pictureBox_Image
             // 
@@ -70,59 +81,55 @@
             this.pictureBox_Image.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBox_Image.InitialImage")));
             this.pictureBox_Image.Location = new System.Drawing.Point(6, 5);
             this.pictureBox_Image.Name = "pictureBox_Image";
-            this.pictureBox_Image.Size = new System.Drawing.Size(121, 127);
+            this.pictureBox_Image.Size = new System.Drawing.Size(354, 421);
             this.pictureBox_Image.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox_Image.TabIndex = 9;
             this.pictureBox_Image.TabStop = false;
-            // 
-            // button_SelectImage
-            // 
-            this.button_SelectImage.Location = new System.Drawing.Point(6, 138);
-            this.button_SelectImage.Name = "button_SelectImage";
-            this.button_SelectImage.Size = new System.Drawing.Size(93, 23);
-            this.button_SelectImage.TabIndex = 8;
-            this.button_SelectImage.Text = "Select Image";
-            this.button_SelectImage.UseVisualStyleBackColor = true;
-            this.button_SelectImage.Click += new System.EventHandler(this.button_SelectImage_Click);
+            this.pictureBox_Image.Click += new System.EventHandler(this.pictureBox_Image_Click);
             // 
             // moveUp
             // 
             this.moveUp.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.moveUp.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.moveUp.Location = new System.Drawing.Point(510, 8);
+            this.moveUp.Font = new System.Drawing.Font("Wingdings 3", 72F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.moveUp.Location = new System.Drawing.Point(1379, 5);
             this.moveUp.Name = "moveUp";
-            this.moveUp.Size = new System.Drawing.Size(27, 27);
+            this.moveUp.Padding = new System.Windows.Forms.Padding(4, 0, 0, 0);
+            this.moveUp.Size = new System.Drawing.Size(99, 151);
             this.moveUp.TabIndex = 7;
-            this.moveUp.Text = "/\\";
+            this.moveUp.Text = "#";
             this.moveUp.UseVisualStyleBackColor = true;
             this.moveUp.Click += new System.EventHandler(this.moveUp_Click);
             // 
             // moveDown
             // 
             this.moveDown.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.moveDown.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.moveDown.Location = new System.Drawing.Point(510, 50);
+            this.moveDown.Font = new System.Drawing.Font("Wingdings 3", 72F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.moveDown.Location = new System.Drawing.Point(1379, 230);
             this.moveDown.Name = "moveDown";
-            this.moveDown.Size = new System.Drawing.Size(27, 27);
+            this.moveDown.Padding = new System.Windows.Forms.Padding(4, 0, 0, 0);
+            this.moveDown.Size = new System.Drawing.Size(99, 153);
             this.moveDown.TabIndex = 6;
-            this.moveDown.Text = "\\/";
+            this.moveDown.Text = "$";
             this.moveDown.UseVisualStyleBackColor = true;
             this.moveDown.Click += new System.EventHandler(this.moveDown_Click);
             // 
             // label_epCounter
             // 
             this.label_epCounter.AutoSize = true;
-            this.label_epCounter.Location = new System.Drawing.Point(185, 35);
+            this.label_epCounter.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label_epCounter.Location = new System.Drawing.Point(462, 130);
             this.label_epCounter.Name = "label_epCounter";
-            this.label_epCounter.Size = new System.Drawing.Size(57, 13);
+            this.label_epCounter.Size = new System.Drawing.Size(251, 55);
             this.label_epCounter.TabIndex = 5;
             this.label_epCounter.Text = "Episode: 0";
             // 
             // button_epMinus
             // 
-            this.button_epMinus.Location = new System.Drawing.Point(159, 31);
+            this.button_epMinus.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.button_epMinus.Location = new System.Drawing.Point(376, 159);
             this.button_epMinus.Name = "button_epMinus";
-            this.button_epMinus.Size = new System.Drawing.Size(20, 20);
+            this.button_epMinus.Padding = new System.Windows.Forms.Padding(2, 0, 0, 8);
+            this.button_epMinus.Size = new System.Drawing.Size(80, 80);
             this.button_epMinus.TabIndex = 4;
             this.button_epMinus.Text = "-";
             this.button_epMinus.UseVisualStyleBackColor = true;
@@ -130,9 +137,11 @@
             // 
             // button_epPlus
             // 
-            this.button_epPlus.Location = new System.Drawing.Point(133, 31);
+            this.button_epPlus.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.button_epPlus.Location = new System.Drawing.Point(376, 76);
             this.button_epPlus.Name = "button_epPlus";
-            this.button_epPlus.Size = new System.Drawing.Size(20, 20);
+            this.button_epPlus.Padding = new System.Windows.Forms.Padding(2, 0, 0, 0);
+            this.button_epPlus.Size = new System.Drawing.Size(80, 80);
             this.button_epPlus.TabIndex = 3;
             this.button_epPlus.Text = "+";
             this.button_epPlus.UseVisualStyleBackColor = true;
@@ -142,9 +151,11 @@
             // 
             this.delete_checkBox.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.delete_checkBox.AutoSize = true;
-            this.delete_checkBox.Location = new System.Drawing.Point(480, 142);
+            this.delete_checkBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.delete_checkBox.Location = new System.Drawing.Point(1351, 389);
             this.delete_checkBox.Name = "delete_checkBox";
-            this.delete_checkBox.Size = new System.Drawing.Size(57, 17);
+            this.delete_checkBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.delete_checkBox.Size = new System.Drawing.Size(118, 37);
             this.delete_checkBox.TabIndex = 2;
             this.delete_checkBox.Text = "Delete";
             this.delete_checkBox.UseVisualStyleBackColor = true;
@@ -153,17 +164,20 @@
             // label_Title
             // 
             this.label_Title.AutoSize = true;
-            this.label_Title.Location = new System.Drawing.Point(133, 11);
+            this.label_Title.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label_Title.Location = new System.Drawing.Point(366, 5);
             this.label_Title.Name = "label_Title";
-            this.label_Title.Size = new System.Drawing.Size(30, 13);
+            this.label_Title.Size = new System.Drawing.Size(126, 55);
             this.label_Title.TabIndex = 1;
             this.label_Title.Text = "Title:";
             // 
             // textBox_Title
             // 
-            this.textBox_Title.Location = new System.Drawing.Point(164, 8);
+            this.textBox_Title.BackColor = System.Drawing.Color.LightGray;
+            this.textBox_Title.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.textBox_Title.Location = new System.Drawing.Point(498, 5);
             this.textBox_Title.Name = "textBox_Title";
-            this.textBox_Title.Size = new System.Drawing.Size(200, 20);
+            this.textBox_Title.Size = new System.Drawing.Size(833, 62);
             this.textBox_Title.TabIndex = 0;
             // 
             // EntryPanel
@@ -172,7 +186,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.entryPanel_);
             this.Name = "EntryPanel";
-            this.Size = new System.Drawing.Size(540, 163);
+            this.Size = new System.Drawing.Size(1481, 429);
             this.entryPanel_.ResumeLayout(false);
             this.entryPanel_.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Image)).EndInit();
@@ -191,7 +205,7 @@
         private System.Windows.Forms.Label label_epCounter;
         private System.Windows.Forms.Button moveDown;
         private System.Windows.Forms.Button moveUp;
-        private System.Windows.Forms.Button button_SelectImage;
         private System.Windows.Forms.PictureBox pictureBox_Image;
+        private System.Windows.Forms.Label label_NumberList;
     }
 }
