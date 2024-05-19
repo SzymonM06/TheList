@@ -39,7 +39,7 @@
             this.button_epPlus = new System.Windows.Forms.Button();
             this.delete_checkBox = new System.Windows.Forms.CheckBox();
             this.label_Title = new System.Windows.Forms.Label();
-            this.textBox_Title = new System.Windows.Forms.TextBox();
+            this.textBox_Title = new TheList.CustomTextBox();
             this.entryPanel_.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Image)).BeginInit();
             this.SuspendLayout();
@@ -116,17 +116,17 @@
             // label_epCounter
             // 
             this.label_epCounter.AutoSize = true;
-            this.label_epCounter.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label_epCounter.Location = new System.Drawing.Point(462, 130);
+            this.label_epCounter.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label_epCounter.Location = new System.Drawing.Point(732, 147);
             this.label_epCounter.Name = "label_epCounter";
-            this.label_epCounter.Size = new System.Drawing.Size(251, 55);
+            this.label_epCounter.Size = new System.Drawing.Size(336, 73);
             this.label_epCounter.TabIndex = 5;
             this.label_epCounter.Text = "Episode: 0";
             // 
             // button_epMinus
             // 
             this.button_epMinus.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.button_epMinus.Location = new System.Drawing.Point(376, 159);
+            this.button_epMinus.Location = new System.Drawing.Point(646, 140);
             this.button_epMinus.Name = "button_epMinus";
             this.button_epMinus.Padding = new System.Windows.Forms.Padding(2, 0, 0, 8);
             this.button_epMinus.Size = new System.Drawing.Size(80, 80);
@@ -138,7 +138,7 @@
             // button_epPlus
             // 
             this.button_epPlus.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.button_epPlus.Location = new System.Drawing.Point(376, 76);
+            this.button_epPlus.Location = new System.Drawing.Point(560, 140);
             this.button_epPlus.Name = "button_epPlus";
             this.button_epPlus.Padding = new System.Windows.Forms.Padding(2, 0, 0, 0);
             this.button_epPlus.Size = new System.Drawing.Size(80, 80);
@@ -164,10 +164,10 @@
             // label_Title
             // 
             this.label_Title.AutoSize = true;
-            this.label_Title.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label_Title.Location = new System.Drawing.Point(366, 5);
+            this.label_Title.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label_Title.Location = new System.Drawing.Point(383, 31);
             this.label_Title.Name = "label_Title";
-            this.label_Title.Size = new System.Drawing.Size(126, 55);
+            this.label_Title.Size = new System.Drawing.Size(171, 73);
             this.label_Title.TabIndex = 1;
             this.label_Title.Text = "Title:";
             // 
@@ -175,9 +175,10 @@
             // 
             this.textBox_Title.BackColor = System.Drawing.Color.LightGray;
             this.textBox_Title.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.textBox_Title.Location = new System.Drawing.Point(498, 5);
+            this.textBox_Title.Location = new System.Drawing.Point(560, 5);
+            this.textBox_Title.Multiline = true;
             this.textBox_Title.Name = "textBox_Title";
-            this.textBox_Title.Size = new System.Drawing.Size(833, 62);
+            this.textBox_Title.Size = new System.Drawing.Size(736, 129);
             this.textBox_Title.TabIndex = 0;
             // 
             // EntryPanel
@@ -197,7 +198,6 @@
         #endregion
 
         private System.Windows.Forms.Panel entryPanel_;
-        private System.Windows.Forms.TextBox textBox_Title;
         private System.Windows.Forms.Label label_Title;
         private System.Windows.Forms.CheckBox delete_checkBox;
         private System.Windows.Forms.Button button_epMinus;
@@ -207,5 +207,6 @@
         private System.Windows.Forms.Button moveUp;
         private System.Windows.Forms.PictureBox pictureBox_Image;
         private System.Windows.Forms.Label label_NumberList;
+        private CustomTextBox textBox_Title;
     }
 }
