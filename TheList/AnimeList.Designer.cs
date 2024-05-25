@@ -1,6 +1,6 @@
 ﻿namespace TheList
 {
-    partial class Form1
+    partial class AnimeList
     {
         /// <summary>
         /// Required designer variable.
@@ -75,8 +75,9 @@
             this.button_Exit.Name = "button_Exit";
             this.button_Exit.Size = new System.Drawing.Size(209, 86);
             this.button_Exit.TabIndex = 3;
-            this.button_Exit.Text = "Exit";
+            this.button_Exit.Text = "Return";
             this.button_Exit.UseVisualStyleBackColor = false;
+            this.button_Exit.Click += new System.EventHandler(this.button_Exit_Click);
             // 
             // button_Delete
             // 
@@ -129,16 +130,15 @@
             this.listPanel.Size = new System.Drawing.Size(1454, 568);
             this.listPanel.TabIndex = 1;
             // 
-            // Form1
+            // AnimeList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.ClientSize = new System.Drawing.Size(1479, 691);
             this.Controls.Add(this.listPanel);
             this.Controls.Add(this.controlPanel);
-            this.Name = "Form1";
-            this.Text = "The List";
+            this.Name = "AnimeList";
+            this.Size = new System.Drawing.Size(1479, 691);
             this.controlPanel.ResumeLayout(false);
             this.controlPanel.PerformLayout();
             this.ResumeLayout(false);

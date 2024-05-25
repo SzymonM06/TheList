@@ -13,16 +13,16 @@ using Newtonsoft.Json;
 
 namespace TheList
 {
-    public partial class Form1 : Form
+    public partial class AnimeList : UserControl
     {
         private string dataFilePath = "data.json"; // save file name
         private List<EntryData> entries = new List<EntryData>(); // list of saving dataF
         int top = 0; // default top possition, used for adding entrypanels
         private int originalScrollPosition = 0;
-        public Form1()
+        public AnimeList()
         {
             InitializeComponent();
-            LoadData(); 
+            LoadData();
             this.Resize += Form1_Resize;
             RefreshEntryPanels(); //refresh on load
         }
@@ -57,7 +57,7 @@ namespace TheList
                 if (control is EntryPanel entryPanel)
                 {
                     entryPanel.Width = availableWidth;
-                    
+
                 }
             }
         }
@@ -66,7 +66,7 @@ namespace TheList
         // move a entrypanel up
         public void MoveEntryUp(EntryPanel entryPanel)
         {
-            ScrollToTop(); 
+            ScrollToTop();
             int index = listPanel.Controls.GetChildIndex(entryPanel);
             if (index > 0)
             {
@@ -100,6 +100,7 @@ namespace TheList
             listPanel.Controls.Add(entryPanel);
             entryPanel.EpisodeCounter = 0;
             RefreshEntryPanels();
+            ScrollToBottom();
         }
 
 
@@ -232,9 +233,25 @@ namespace TheList
             listPanel.VerticalScroll.Value = 0;
         }
 
+        private void ScrollToBottom()
+        {
+            listPanel.VerticalScroll.Value = listPanel.VerticalScroll.Maximum;
+            listPanel.PerformLayout();
+        }
+
         private void RestoreScrollPosition()
         {
             listPanel.VerticalScroll.Value = originalScrollPosition; // Restore the original scroll position
+        }
+
+        private void button_Exit_Click(object sender, EventArgs e)
+        {
+            Form mainForm = this.FindForm();
+            if (mainForm != null && mainForm is Main)
+            {
+                Main mainFormInstance = (Main)mainForm;
+                mainFormInstance.HideAnimeList();
+            }
         }
     }
 }

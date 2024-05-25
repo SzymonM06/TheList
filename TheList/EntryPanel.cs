@@ -90,14 +90,31 @@ namespace TheList
         // Moving entrypanels up and down
         private void moveUp_Click(object sender, EventArgs e)
         {
-            Form1 form = this.FindForm() as Form1;
-            form.MoveEntryUp(this); 
+            AnimeList animeList = FindParentAnimeList(this);
+            if (animeList != null)
+            {
+                animeList.MoveEntryUp(this);
+            }
         }
 
         private void moveDown_Click(object sender, EventArgs e)
         {
-            Form1 form = this.FindForm() as Form1;
-            form.MoveEntryDown(this); 
+            AnimeList animeList = FindParentAnimeList(this);
+            if (animeList != null)
+            {
+                animeList.MoveEntryDown(this);
+            }
+        }
+
+        // Helper method to find the parent AnimeList control
+        private AnimeList FindParentAnimeList(Control control)
+        {
+            Control parent = control.Parent;
+            while (parent != null && !(parent is AnimeList))
+            {
+                parent = parent.Parent;
+            }
+            return parent as AnimeList;
         }
 
 
