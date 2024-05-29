@@ -18,15 +18,24 @@ namespace TheList
         public MainMenu()
         {
             InitializeComponent();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
+        }        
+        private void button_AnimeList_Click(object sender, EventArgs e)
         {
             Form mainForm = this.FindForm();
             if (mainForm != null && mainForm is Main)
             {
                 Main mainFormInstance = (Main)mainForm;
                 mainFormInstance.ShowAnimeList();
+            }
+        }
+
+        private void button_SeriesList_Click(object sender, EventArgs e)
+        {
+            Form mainForm = this.FindForm();
+            if (mainForm != null && mainForm is Main)
+            {
+                Main mainFormInstance = (Main)mainForm;
+                mainFormInstance.ShowSeriesList();
             }
         }
     }

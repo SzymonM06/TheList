@@ -14,6 +14,7 @@ namespace TheList
     {
         private MainMenu mainMenu = new MainMenu();
         private AnimeList animeList = new AnimeList();
+        private SeriesList seriesList = new SeriesList();
 
         public Main()
         {
@@ -21,12 +22,17 @@ namespace TheList
 
             mainMenu.Dock = DockStyle.Fill;
             animeList.Dock = DockStyle.Fill;
+            seriesList.Dock = DockStyle.Fill;
 
             this.Controls.Add(mainMenu);
             this.Controls.Add(animeList);
+            this.Controls.Add(seriesList);
             animeList.Hide();
+            seriesList.Hide();
         }
 
+
+        //Anime
         public void ShowAnimeList()
         {
             mainMenu.Hide();
@@ -37,6 +43,19 @@ namespace TheList
         {
             mainMenu.Show();
             animeList.Hide();
+        }
+
+        //Series
+        public void ShowSeriesList()
+        {
+            mainMenu.Hide();
+            seriesList.Show();
+        }
+
+        public void HideSeriesList() 
+        {
+            mainMenu.Show();
+            seriesList.Hide();
         }
     }
 }

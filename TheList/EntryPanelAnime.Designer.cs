@@ -1,6 +1,6 @@
 ﻿namespace TheList
 {
-    partial class EntryPanel
+    partial class EntryPanelAnime
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EntryPanel));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EntryPanelAnime));
             this.entryPanel_ = new System.Windows.Forms.Panel();
             this.label_NumberList = new System.Windows.Forms.Label();
             this.pictureBox_Image = new System.Windows.Forms.PictureBox();
@@ -39,6 +39,11 @@
             this.button_epPlus = new System.Windows.Forms.Button();
             this.delete_checkBox = new System.Windows.Forms.CheckBox();
             this.label_Title = new System.Windows.Forms.Label();
+            this.button_epClear = new System.Windows.Forms.Button();
+            this.label_sCounter = new System.Windows.Forms.Label();
+            this.button_sMinus = new System.Windows.Forms.Button();
+            this.button_sPlus = new System.Windows.Forms.Button();
+            this.button_sClear = new System.Windows.Forms.Button();
             this.textBox_Title = new TheList.CustomTextBox();
             this.entryPanel_.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Image)).BeginInit();
@@ -48,6 +53,11 @@
             // 
             this.entryPanel_.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.entryPanel_.BackColor = System.Drawing.Color.LightGray;
+            this.entryPanel_.Controls.Add(this.button_sClear);
+            this.entryPanel_.Controls.Add(this.button_sPlus);
+            this.entryPanel_.Controls.Add(this.button_sMinus);
+            this.entryPanel_.Controls.Add(this.label_sCounter);
+            this.entryPanel_.Controls.Add(this.button_epClear);
             this.entryPanel_.Controls.Add(this.label_NumberList);
             this.entryPanel_.Controls.Add(this.pictureBox_Image);
             this.entryPanel_.Controls.Add(this.moveUp);
@@ -117,7 +127,7 @@
             // 
             this.label_epCounter.AutoSize = true;
             this.label_epCounter.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label_epCounter.Location = new System.Drawing.Point(732, 147);
+            this.label_epCounter.Location = new System.Drawing.Point(828, 230);
             this.label_epCounter.Name = "label_epCounter";
             this.label_epCounter.Size = new System.Drawing.Size(336, 73);
             this.label_epCounter.TabIndex = 5;
@@ -126,7 +136,7 @@
             // button_epMinus
             // 
             this.button_epMinus.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.button_epMinus.Location = new System.Drawing.Point(646, 140);
+            this.button_epMinus.Location = new System.Drawing.Point(561, 230);
             this.button_epMinus.Name = "button_epMinus";
             this.button_epMinus.Padding = new System.Windows.Forms.Padding(2, 0, 0, 8);
             this.button_epMinus.Size = new System.Drawing.Size(80, 80);
@@ -138,7 +148,7 @@
             // button_epPlus
             // 
             this.button_epPlus.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.button_epPlus.Location = new System.Drawing.Point(560, 140);
+            this.button_epPlus.Location = new System.Drawing.Point(742, 230);
             this.button_epPlus.Name = "button_epPlus";
             this.button_epPlus.Padding = new System.Windows.Forms.Padding(2, 0, 0, 0);
             this.button_epPlus.Size = new System.Drawing.Size(80, 80);
@@ -170,6 +180,61 @@
             this.label_Title.Size = new System.Drawing.Size(171, 73);
             this.label_Title.TabIndex = 1;
             this.label_Title.Text = "Title:";
+            // 
+            // button_epClear
+            // 
+            this.button_epClear.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.button_epClear.Location = new System.Drawing.Point(647, 230);
+            this.button_epClear.Name = "button_epClear";
+            this.button_epClear.Size = new System.Drawing.Size(89, 80);
+            this.button_epClear.TabIndex = 11;
+            this.button_epClear.Text = "Clear";
+            this.button_epClear.UseVisualStyleBackColor = true;
+            // 
+            // label_sCounter
+            // 
+            this.label_sCounter.AutoSize = true;
+            this.label_sCounter.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label_sCounter.Location = new System.Drawing.Point(828, 147);
+            this.label_sCounter.Name = "label_sCounter";
+            this.label_sCounter.Size = new System.Drawing.Size(322, 73);
+            this.label_sCounter.TabIndex = 12;
+            this.label_sCounter.Text = "Season: 0";
+            // 
+            // button_sMinus
+            // 
+            this.button_sMinus.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.button_sMinus.Location = new System.Drawing.Point(561, 144);
+            this.button_sMinus.Name = "button_sMinus";
+            this.button_sMinus.Padding = new System.Windows.Forms.Padding(2, 0, 0, 8);
+            this.button_sMinus.Size = new System.Drawing.Size(80, 80);
+            this.button_sMinus.TabIndex = 13;
+            this.button_sMinus.Text = "-";
+            this.button_sMinus.UseVisualStyleBackColor = true;
+            this.button_sMinus.Click += new System.EventHandler(this.button_sMinus_Click);
+            // 
+            // button_sPlus
+            // 
+            this.button_sPlus.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.button_sPlus.Location = new System.Drawing.Point(742, 144);
+            this.button_sPlus.Name = "button_sPlus";
+            this.button_sPlus.Padding = new System.Windows.Forms.Padding(2, 0, 0, 0);
+            this.button_sPlus.Size = new System.Drawing.Size(80, 80);
+            this.button_sPlus.TabIndex = 14;
+            this.button_sPlus.Text = "+";
+            this.button_sPlus.UseVisualStyleBackColor = true;
+            this.button_sPlus.Click += new System.EventHandler(this.button_sPlus_Click);
+            // 
+            // button_sClear
+            // 
+            this.button_sClear.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.button_sClear.Location = new System.Drawing.Point(647, 144);
+            this.button_sClear.Name = "button_sClear";
+            this.button_sClear.Size = new System.Drawing.Size(89, 80);
+            this.button_sClear.TabIndex = 15;
+            this.button_sClear.Text = "Clear";
+            this.button_sClear.UseVisualStyleBackColor = true;
+            this.button_sClear.Click += new System.EventHandler(this.button_sClear_Click);
             // 
             // textBox_Title
             // 
@@ -208,5 +273,10 @@
         private System.Windows.Forms.PictureBox pictureBox_Image;
         private System.Windows.Forms.Label label_NumberList;
         private CustomTextBox textBox_Title;
+        private System.Windows.Forms.Button button_sClear;
+        private System.Windows.Forms.Button button_sPlus;
+        private System.Windows.Forms.Button button_sMinus;
+        private System.Windows.Forms.Label label_sCounter;
+        private System.Windows.Forms.Button button_epClear;
     }
 }

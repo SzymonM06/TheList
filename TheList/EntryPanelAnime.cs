@@ -11,9 +11,9 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace TheList
 {
-    public partial class EntryPanel : UserControl
+    public partial class EntryPanelAnime : UserControl
     {
-        public EntryPanel()
+        public EntryPanelAnime()
         {
             InitializeComponent();
             this.HandleCreated += EntryPanel_size;
@@ -87,6 +87,31 @@ namespace TheList
         }
 
         // ==================================================================
+        // Season counter
+
+        private int seasonCounter = 0;
+        private void button_sPlus_Click(object sender, EventArgs e)
+        {
+            seasonCounter++;
+            label_sCounter.Text = $"Season: {seasonCounter}";
+        }
+
+        private void button_sMinus_Click(object sender, EventArgs e)
+        {
+            if (seasonCounter > 0)
+            {
+                seasonCounter++;
+                label_sCounter.Text = $"Season: {seasonCounter}";
+            }
+        }
+
+        private void button_sClear_Click(object sender, EventArgs e)
+        {
+            seasonCounter = 0;
+            label_sCounter.Text = $"Season: {seasonCounter}";
+        }
+
+        // ==================================================================
         // Moving entrypanels up and down
         private void moveUp_Click(object sender, EventArgs e)
         {
@@ -145,6 +170,16 @@ namespace TheList
             {
                 episodeCounter = value;
                 label_epCounter.Text = $"Episode: {episodeCounter}";
+            }
+        }
+
+        public int SeasonCounter
+        {
+            get { return seasonCounter; }
+            set
+            {
+                seasonCounter = value;
+                label_sCounter.Text = $"Season: {seasonCounter}";
             }
         }
 

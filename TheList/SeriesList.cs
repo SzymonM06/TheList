@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -8,18 +9,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml;
-using Newtonsoft.Json;
 
 namespace TheList
 {
-    public partial class AnimeList : UserControl
+    public partial class SeriesList : UserControl
     {
-        private string dataFilePath = "savedata/savedata_Anime.json"; // save file name
+        private string dataFilePath = "savedata/savedata_Series.json"; // save file name
         private List<EntryData> entries = new List<EntryData>(); // list of saving dataF
         int top = 0; // default top possition, used for adding entrypanels
         private int originalScrollPosition = 0;
-        public AnimeList()
+        public SeriesList()
         {
             InitializeComponent();
             LoadData();
@@ -238,7 +237,7 @@ namespace TheList
             if (mainForm != null && mainForm is Main)
             {
                 Main mainFormInstance = (Main)mainForm;
-                mainFormInstance.HideAnimeList();
+                mainFormInstance.HideSeriesList();
             }
         }
 
