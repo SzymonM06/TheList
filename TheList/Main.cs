@@ -29,20 +29,14 @@ namespace TheList
 
         public void ShowAnimeList()
         {
-            // Hide MainMenu and show AnimeList
-            MessageBox.Show("Show");
             mainMenu.Hide();
             animeList.Show();
         }
 
         public void HideAnimeList()
         {
-            // Hide AnimeList and show MainMenu
-            //MessageBox.Show("Hide");
-            //animeList.Hide();
-            //mainMenu.Show();
-            animeList.Visible = false;  
-            mainMenu.Visible = true;
+            mainMenu.Show();
+            animeList.Hide();
         }
     }
 }

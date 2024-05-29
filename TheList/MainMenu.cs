@@ -22,11 +22,12 @@ namespace TheList
 
         private void button1_Click(object sender, EventArgs e)
         {
-            AnimeList animeList = new AnimeList();
-            animeList.Dock = DockStyle.Fill;
-
-            this.Controls.Clear();
-            this.Controls.Add(animeList);
+            Form mainForm = this.FindForm();
+            if (mainForm != null && mainForm is Main)
+            {
+                Main mainFormInstance = (Main)mainForm;
+                mainFormInstance.ShowAnimeList();
+            }
         }
     }
 }

@@ -243,7 +243,6 @@ namespace TheList
         {
             listPanel.VerticalScroll.Value = originalScrollPosition; // Restore the original scroll position
         }
-
         private void button_Exit_Click(object sender, EventArgs e)
         {
             Form mainForm = this.FindForm();
